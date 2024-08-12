@@ -11,17 +11,21 @@ export const Home = () => {
 
   useEffect(() => {
     const getHeroesList = async () => {
-      const res = await axios.get<HeroesData>(`${import.meta.env.VITE_API_URL}/v1/public/characters`, {
-        params: {
-          apikey: import.meta.env.VITE_API_KEY,
-          hash: import.meta.env.VITE_API_HASHED,
-          ts: import.meta.env.VITE_API_TS,
-          limit,
-          offset,
-        },
-      });
-      setLoading(false);
-      setList(res.data.data.results);
+      try {
+        const res = await axios.get<HeroesData>(`${import.meta.env.VITE_API_URL}/v1/public/characters`, {
+          params: {
+            apikey: import.meta.env.VITE_API_KEY,
+            hash: import.meta.env.VITE_API_HASHED,
+            ts: import.meta.env.VITE_API_TS,
+            limit,
+            offset,
+          },
+        });
+        setLoading(false);
+        setList(res.data.data.results);
+      } catch (e) {
+        console.log(e);
+      }
     };
 
     getHeroesList();
