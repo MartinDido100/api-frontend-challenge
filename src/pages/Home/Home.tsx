@@ -1,48 +1,48 @@
 import { useEffect, useState } from 'react';
 import { List } from '../../components/List/List';
 import axios from 'axios';
-import { HeroesData, HeroesResult } from './interfaces/heroes.interface';
+import { CardInterface, CardListResponse } from '../../interfaces/card.interface';
 
 export const Home = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [heroesList, setList] = useState<HeroesResult[]>([]);
-  const [offset, setOffset] = useState<number>(0);
-  const limit = 30;
+  const [cards, setCards] = useState<CardInterface[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const limit = 10;
+  const select = 'id,name,types,attacks,weakness,rarity,images';
 
   useEffect(() => {
+    setLoading(true);
     const getHeroesList = async () => {
       try {
-        const res = await axios.get<HeroesData>(`${import.meta.env.VITE_API_URL}/v1/public/characters`, {
+        const res = await axios.get<CardListResponse>(`${import.meta.env.VITE_API_URL}/cards`, {
           params: {
-            apikey: import.meta.env.VITE_API_KEY,
-            hash: import.meta.env.VITE_API_HASHED,
-            ts: import.meta.env.VITE_API_TS,
-            limit,
-            offset,
+            pageSize: limit,
+            page,
+            select,
           },
         });
-        setLoading(false);
-        setList(res.data.data.results);
+        setCards((prev) => prev.concat(res.data.data));
       } catch (e) {
         console.log(e);
+      } finally {
+        setLoading(false);
       }
     };
 
     getHeroesList();
-  }, []);
+  }, [page]);
 
   return (
     <>
-      <section className="w-full flex pt-24 min-h-screen bg-primary-color">
-        {loading ? (
-          <span>Loading</span>
-        ) : (
+      <main className="w-full pb-4 flex-col items-center justify-center flex pt-24 min-h-screen bg-primary-color">
+        {cards.length > 0 && (
           <>
-            <List heroes={heroesList}></List>
-            <div></div>
+            <List cards={cards}></List>
+            {!loading && <button onClick={() => setPage((prev) => prev + 1)}>Load more..</button>}
           </>
         )}
-      </section>
+        {loading && <h4>Loading...</h4>}
+      </main>
     </>
   );
 };
