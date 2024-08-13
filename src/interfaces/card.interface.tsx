@@ -13,6 +13,9 @@ export interface CardInterface {
   attacks: Attack[];
   rarity?: string;
   images: Images;
+  set: {
+    id: number;
+  };
 }
 
 export interface Attack {
@@ -35,4 +38,31 @@ export enum Type {
 export interface Images {
   small: string;
   large: string;
+}
+
+export interface CardDetailResponse {
+  data: CardDetail;
+}
+
+export interface CardDetail {
+  name: string;
+  supertype: string;
+  hp: string;
+  types: string[];
+  evolvesFrom: string;
+  weaknesses: Resistance[];
+  resistances: Resistance[];
+  number: string;
+  cardmarket: Cardmarket;
+}
+
+export interface Cardmarket {
+  url: string;
+  updatedAt: string;
+  prices: { [key: string]: number };
+}
+
+export interface Resistance {
+  type: string;
+  value: string;
 }

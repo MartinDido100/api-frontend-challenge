@@ -1,47 +1,46 @@
 import { useEffect, useState } from 'react';
-import { List } from '../../components/List/List';
-import axios from 'axios';
-import { CardInterface, CardListResponse } from '../../interfaces/card.interface';
+import { CardInterface } from '../../interfaces';
+import { getCards } from '../../services';
+import { List, Loader } from '../../components';
+import bg from '../../assets/images/background.webp';
 
 export const Home = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [cards, setCards] = useState<CardInterface[]>([]);
   const [page, setPage] = useState<number>(1);
-  const limit = 10;
-  const select = 'id,name,types,attacks,weakness,rarity,images';
+  const [error, setError] = useState<Error | null>(null);
+
+  const getHeroesList = async (page: number) => {
+    try {
+      const res = await getCards(page);
+      setCards((prev) => prev.concat(res.data.data));
+    } catch (e) {
+      setError(e as Error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     setLoading(true);
-    const getHeroesList = async () => {
-      try {
-        const res = await axios.get<CardListResponse>(`${import.meta.env.VITE_API_URL}/cards`, {
-          params: {
-            pageSize: limit,
-            page,
-            select,
-          },
-        });
-        setCards((prev) => prev.concat(res.data.data));
-      } catch (e) {
-        console.log(e);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getHeroesList();
+    getHeroesList(page);
   }, [page]);
 
   return (
     <>
-      <main className="w-full pb-4 flex-col items-center justify-center flex pt-24 min-h-screen bg-primary-color">
+      <main
+        className="w-full bg-cover bg-fixed pb-4 flex-col items-center justify-center flex pt-40 min-h-screen"
+        style={{ backgroundImage: `url(${bg})` }}
+      >
         {cards.length > 0 && (
           <>
             <List cards={cards}></List>
             {!loading && <button onClick={() => setPage((prev) => prev + 1)}>Load more..</button>}
           </>
         )}
-        {loading && <h4>Loading...</h4>}
+
+        {loading && <Loader />}
+        {error && <h4 className="text-secondary-color">{error.message}</h4>}
       </main>
     </>
   );

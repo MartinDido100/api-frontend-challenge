@@ -6,9 +6,9 @@ export const theme = {
       marvel: ['"Marvel"', 'sans-serif'],
     },
     colors: {
-      'primary-color': '#ec1d24',
+      'primary-color': '#f04037',
       'secondary-color': '#fefefe',
-    },
+    }
   },
 };
 export const plugins = [];
