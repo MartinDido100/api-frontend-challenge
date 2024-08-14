@@ -20,10 +20,12 @@ export const Card = ({ card }: CardProps) => {
     getCardSet();
   }, [card.set.id]);
 
-  const cardList = card.attacks.map((attack, index) => (
+  const cardList = card.attacks?.map((attack, index) => (
     <li key={index} className="flex flex-col">
-      <span>Name: {attack.name}</span>
-      <span>Description: {attack.text} </span>
+      <span className="text-title-color">
+        {index + 1}) {attack.name}
+      </span>
+      <span>{attack.text ? `Description: ${attack.text}` : 'No description'} </span>
       <span>Damage: {attack.damage ? attack.damage : 'No damage'} </span>
       <br />
     </li>
@@ -36,14 +38,14 @@ export const Card = ({ card }: CardProps) => {
         onClick={() => navigate(`/card/${card.id}`)}
       >
         <div>
-          <section className="text-secondary-color gap-3 absolute flex items-start flex-col p-8 w-full h-full rounded-2xl opacity-0 hover:opacity-100 transition-all hover:backdrop-blur-sm hover:bg-[#000c] bg-transparent top-0">
+          <section className="text-secondary-color text-xl gap-2 absolute flex items-start flex-col p-8 w-full h-full rounded-2xl opacity-0 hover:opacity-100 transition-all hover:backdrop-blur-sm hover:bg-[#000c] bg-transparent top-0">
             <h4 className="text-4xl self-center">
               <strong>{card.name}</strong>
             </h4>
-            <h6 className="text-xl">-Rarity: {card.rarity ? card.rarity : 'Common'}</h6>
-            <span className="text-2xl">- Attacks:</span>
-            <ul>{cardList}</ul>
-            <span>- Card set:</span>
+            <h6 className="text-2xl text-title-color">-Rarity: {card.rarity ? card.rarity : 'Common'}</h6>
+            <span className="text-2xl text-title-color">- Attacks:</span>
+            <ul>{cardList || 'No atacks'}</ul>
+            <span className="text-2xl text-title-color">- Card set:</span>
             <div className="flex w-full items-center justify-between text-secondary-color">
               <div className="flex flex-col">
                 <span>Set name: {cardSet?.name}</span>

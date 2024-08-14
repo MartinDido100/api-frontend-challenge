@@ -8,7 +8,8 @@ export const theme = {
     colors: {
       'primary-color': '#f04037',
       'secondary-color': '#fefefe',
-    }
+      'title-color': '#e4b637',
+    },
   },
 };
 export const plugins = [];

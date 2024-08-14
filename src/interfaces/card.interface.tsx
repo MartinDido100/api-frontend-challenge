@@ -10,7 +10,7 @@ export interface CardInterface {
   id: string;
   name: string;
   types: Type[];
-  attacks: Attack[];
+  attacks?: Attack[];
   rarity?: string;
   images: Images;
   set: {
@@ -52,14 +52,22 @@ export interface CardDetail {
   evolvesFrom: string;
   weaknesses: Resistance[];
   resistances: Resistance[];
-  number: string;
+  number: number;
   cardmarket: Cardmarket;
+  images: Images
 }
 
 export interface Cardmarket {
   url: string;
   updatedAt: string;
-  prices: { [key: string]: number };
+  prices: MarketPrices;
+}
+
+interface MarketPrices {
+    trendPrice: number;
+    avg1: number;
+    avg7: number;
+    avg30: number;
 }
 
 export interface Resistance {

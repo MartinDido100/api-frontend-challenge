@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { CardDetail } from '../../interfaces';
 import { getCard } from '../../services';
 import { Loader } from '../../components';
+import { DetailInfo } from '../../components/CardDetails/Detail-Info/Detail-Info';
 
 export const Detail = () => {
   const { cardId } = useParams();
@@ -29,7 +30,7 @@ export const Detail = () => {
 
   return (
     <section
-      className="flex bg-center pt-24 bg-cover h-screen w-full"
+      className="flex bg-center pt-20 bg-cover h-screen w-full items-center justify-center"
       style={{ backgroundImage: `url(${background})` }}
     >
       {loading && (
@@ -38,11 +39,9 @@ export const Detail = () => {
         </div>
       )}
 
-      {card && (
-        <>
-          <h2>{card.name}</h2>
-        </>
-      )}
+      {card && <DetailInfo card={card} />}
+
+      {error && <h4>{error.message}</h4>}
     </section>
   );
 };
