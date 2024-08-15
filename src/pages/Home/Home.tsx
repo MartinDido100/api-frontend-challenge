@@ -13,7 +13,7 @@ export const Home = () => {
   const { cards, isFetching, isError, fetchNextPage } = useCards(searchCtx?.value);
 
   useEffect(() => {
-    if (cards !== undefined && cards?.length === 0) {
+    if (searchCtx?.value !== '' && cards !== undefined && cards?.length === 0) {
       navigate('/not-found');
     }
   }, [cards]);
