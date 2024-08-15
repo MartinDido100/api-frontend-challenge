@@ -30,7 +30,7 @@ export const Detail = () => {
 
   return (
     <section
-      className="flex bg-center pt-20 bg-cover h-screen w-full items-center justify-center"
+      className="flex bg-center bg-cover h-screen w-full items-center justify-center"
       style={{ backgroundImage: `url(${background})` }}
     >
       {loading && (

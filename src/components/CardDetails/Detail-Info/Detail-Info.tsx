@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { CardDetail } from '../../../interfaces';
 import { GeneralDetails } from '../GeneralDetails/GeneralDetails';
 import { MarketDetails } from '../MarketDetails/MarketDetail';
@@ -8,6 +9,8 @@ interface DetailInfoProps {
 }
 
 export const DetailInfo = ({ card }: DetailInfoProps) => {
+  const navigate = useNavigate();
+
   const generalInfo = {
     name: card.name,
     supertype: card.supertype,
@@ -19,7 +22,13 @@ export const DetailInfo = ({ card }: DetailInfoProps) => {
 
   return (
     <>
-      <div className="flex px-7 py-8 gap-48 max-w-[83rem] w-11/12 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-50 items-start">
+      <div className="flex px-7 py-8 gap-48 max-w-[83rem] w-11/12 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-50 items-center relative">
+        <img
+          src="/svg/cross.svg"
+          className="hover:scale-95 transition-transform w-7 h-7 cursor-pointer absolute top-4 right-8"
+          alt="cross"
+          onClick={() => navigate('/')}
+        />
         <picture className="w-[26rem] h-[36rem]">
           <img src={card.images.large} className="w-full h-full" />
         </picture>

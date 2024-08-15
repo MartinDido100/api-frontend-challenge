@@ -18,7 +18,7 @@ export const Card = ({ card }: CardProps) => {
     };
 
     getCardSet();
-  }, [card.set.id]);
+  }, []);
 
   const cardList = card.attacks?.map((attack, index) => (
     <li key={index} className="flex flex-col">
@@ -34,11 +34,11 @@ export const Card = ({ card }: CardProps) => {
   return (
     <>
       <div
-        className="flex cursor-pointer flex-col relative items-center gap-3 w-full"
+        className="flex cursor-pointer flex-col relative items-center gap-3 w-full h-full"
         onClick={() => navigate(`/card/${card.id}`)}
       >
-        <div>
-          <section className="text-secondary-color text-xl gap-2 absolute flex items-start flex-col p-8 w-full h-full rounded-2xl opacity-0 hover:opacity-100 transition-all hover:backdrop-blur-sm hover:bg-[#000c] bg-transparent top-0">
+        <div className='w-full h-full'>
+          <section className="text-secondary-color overflow-y-auto text-xl gap-2 absolute flex items-start flex-col p-8 w-full h-full rounded-2xl opacity-0 hover:opacity-100 transition-all hover:backdrop-blur-sm hover:bg-[#000c] bg-transparent top-0">
             <h4 className="text-4xl self-center">
               <strong>{card.name}</strong>
             </h4>
@@ -58,7 +58,7 @@ export const Card = ({ card }: CardProps) => {
             </div>
           </section>
           <picture className="w-full">
-            <img className="rounded-2xl" src={card.images.large} alt={`${card.name} image`} />
+            <img className="rounded-2xl w-full h-full" src={card.images.large} alt={`${card.name} image`} />
           </picture>
         </div>
       </div>

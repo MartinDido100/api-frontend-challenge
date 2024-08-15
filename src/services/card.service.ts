@@ -19,12 +19,13 @@ export const getCard = (id: string) => {
   })
 }
 
-export const getCards = (page: number) => {
+export const getCards = (page: number,nameQuery: string | undefined) => {
   return axios.get<CardListResponse>(`${import.meta.env.VITE_API_URL}/cards`, {
     params: {
       pageSize: limit,
       page,
       select: cardSelect,
+      q: nameQuery !== undefined ? `name:*${nameQuery}*` : null
     },
     headers
   });
