@@ -1,9 +1,16 @@
 import { FetchNextPageOptions, InfiniteQueryObserverResult, useInfiniteQuery } from 'react-query';
 import { CardInterface } from '../interfaces';
 import { getCards } from '../services';
+import { Filter } from '../interfaces/filter.interface';
 
-const fetchCards = async ({ pageParam = 1, queryKey }: { pageParam?: number; queryKey: (string | undefined)[] }) => {
-  const res = await getCards(pageParam, queryKey[1]);
+const fetchCards = async ({
+  pageParam = 1,
+  queryKey,
+}: {
+  pageParam?: number;
+  queryKey: (string | Filter | undefined | null)[];
+}) => {
+  const res = await getCards(pageParam, queryKey[1] as string, queryKey[2] as Filter);
   return {
     cards: res.data.data,
     page: res.data.page,
@@ -17,7 +24,8 @@ const checkNextPage = (lastPage: number, totalCount: number, pageSize: number): 
 };
 
 export const useCards = (
-  query: string | undefined,
+  query: string,
+  filter: Filter | null,
 ): {
   cards: CardInterface[] | undefined;
   hasNextPage: boolean | undefined;
@@ -27,7 +35,7 @@ export const useCards = (
   fetchNextPage: (options?: FetchNextPageOptions) => Promise<InfiniteQueryObserverResult>;
 } => {
   const { data, hasNextPage, isLoading, error, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
-    queryKey: ['cards', query],
+    queryKey: ['cards', query, filter],
     queryFn: fetchCards,
     getNextPageParam: (lastPage) => {
       return checkNextPage(lastPage.page, lastPage.totalCount, lastPage.pageSize) ? lastPage.page + 1 : undefined;

@@ -40,7 +40,7 @@ export const Card = ({ card }: CardProps) => {
         <div className="w-full h-full">
           <section className="text-secondary-color overflow-y-auto text-xl gap-2 absolute flex items-start flex-col p-8 w-full h-full rounded-2xl opacity-0 hover:opacity-100 transition-all hover:backdrop-blur-sm hover:bg-[#000c] bg-transparent top-0">
             <div className="absolute flex gap-3 h-6 top-3 right-6">
-              {card.types.map((type) => (
+              {card.types && card.types.map((type) => (
                 <img src={`/images/${type}.png`} key={type} alt={type} className="w-full h-full" />
               ))}
             </div>

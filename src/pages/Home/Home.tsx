@@ -1,15 +1,25 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { List, Loader } from '../../components';
 import bg from '../../assets/images/background.webp';
 import { SearchContext } from '../Layout';
 import { useCards } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
+import { Filter } from '../../interfaces/filter.interface';
+import { FilterBar } from '../../components/FilterBar/FilterBar';
 
 export const Home = () => {
   const searchCtx = useContext(SearchContext);
   const navigate = useNavigate();
+  const [filter, setFilter] = useState<Filter | null>(null);
 
-  const { cards, isFetchingNextPage, error, isLoading, fetchNextPage, hasNextPage } = useCards(searchCtx?.value);
+  const { cards, isFetchingNextPage, error, isLoading, fetchNextPage, hasNextPage } = useCards(
+    searchCtx!.value,
+    filter,
+  );
+
+  const handleFilterChange = (filter: Filter | null) => {
+    setFilter(filter);
+  };
 
   useEffect(() => {
     if ((searchCtx?.value !== '' && cards !== undefined && cards?.length === 0) || error !== null) {
@@ -21,9 +31,10 @@ export const Home = () => {
   return (
     <>
       <main
-        className="w-full bg-cover bg-fixed flex-col items-center justify-center flex min-h-screen pb-6"
+        className="w-full bg-cover bg-fixed flex-col items-center flex min-h-screen pb-6"
         style={{ backgroundImage: `url(${bg})` }}
       >
+        <FilterBar OnChangeFilter={handleFilterChange} />
         {cards && cards.length > 0 && (
           <>
             <List cards={cards!}></List>
@@ -43,7 +54,11 @@ export const Home = () => {
           </>
         )}
 
-        {(isLoading || isFetchingNextPage) && <Loader />}
+        {(isLoading || isFetchingNextPage) && (
+          <div className="w-full grow flex items-center justify-center">
+            <Loader />
+          </div>
+        )}
       </main>
     </>
   );

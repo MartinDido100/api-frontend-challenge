@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { CardDetailResponse, CardListResponse } from '../interfaces/card.interface';
 import { CardSetResponse } from '../interfaces';
+import { Filter, FilterResponse } from '../interfaces/filter.interface';
 
 const limit = 20;
 const cardSelect = 'id,name,types,attacks,weakness,rarity,images,set';
@@ -20,7 +21,7 @@ export const getCard = (id: string) => {
   })
 }
 
-export const getCards = (page: number,nameQuery: string | undefined) => {
+export const getCards = (page: number,nameQuery: string,filter: Filter) => {
   return axios.get<CardListResponse>(`${baseUrl}/cards`, {
     params: {
       pageSize: limit,
@@ -42,7 +43,7 @@ export const getSet = (id: number) => {
 };
 
 export const getSetList = () => {
- return axios.get(`${baseUrl}/sets`,{
+ return axios.get<FilterResponse>(`${baseUrl}/sets`,{
   params: {
     select: 'name'
   },
@@ -51,13 +52,13 @@ export const getSetList = () => {
 }
 
 export const getRarities = () => {
- return axios.get(`${baseUrl}/rarities`, {
+ return axios.get<FilterResponse>(`${baseUrl}/rarities`, {
    headers,
  });
 }
 
 export const getTypes = () => {
- return axios.get(`${baseUrl}/types`, {
+ return axios.get<FilterResponse>(`${baseUrl}/types`, {
    headers,
  });
 }
