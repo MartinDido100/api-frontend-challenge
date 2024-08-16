@@ -7,27 +7,41 @@ const fetchCards = async ({ pageParam = 1, queryKey }: { pageParam?: number; que
   return {
     cards: res.data.data,
     page: res.data.page,
+    totalCount: res.data.totalCount,
+    pageSize: res.data.pageSize,
   };
+};
+
+const checkNextPage = (lastPage: number, totalCount: number, pageSize: number): boolean => {
+  return totalCount / pageSize > lastPage;
 };
 
 export const useCards = (
   query: string | undefined,
 ): {
   cards: CardInterface[] | undefined;
-  isError: boolean;
-  isFetching: boolean;
+  hasNextPage: boolean | undefined;
+  isLoading: boolean;
+  isFetchingNextPage: boolean;
+  error: unknown;
   fetchNextPage: (options?: FetchNextPageOptions) => Promise<InfiniteQueryObserverResult>;
 } => {
-  const { data, isError, isFetching, fetchNextPage } = useInfiniteQuery({
+  const { data, hasNextPage, isLoading, error, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ['cards', query],
     queryFn: fetchCards,
-    getNextPageParam: (lastPage) => lastPage.page + 1,
+    getNextPageParam: (lastPage) => {
+      return checkNextPage(lastPage.page, lastPage.totalCount, lastPage.pageSize) ? lastPage.page + 1 : undefined;
+    },
+    refetchOnWindowFocus: false,
+    retry: false,
   });
 
   return {
     cards: data?.pages.flatMap((page) => page.cards),
-    isError,
+    error,
     fetchNextPage,
-    isFetching,
+    isFetchingNextPage,
+    hasNextPage,
+    isLoading,
   };
 };

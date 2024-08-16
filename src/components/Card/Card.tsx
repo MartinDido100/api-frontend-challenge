@@ -11,12 +11,12 @@ export const Card = ({ card }: CardProps) => {
   const navigate = useNavigate();
   const [cardSet, setCardSet] = useState<CardSet | null>(null);
 
-  useEffect(() => {
-    const getCardSet = async () => {
-      const res = await getSet(card.set.id);
-      setCardSet(res.data.data);
-    };
+  const getCardSet = async () => {
+    const res = await getSet(card.set.id);
+    setCardSet(res.data.data);
+  };
 
+  useEffect(() => {
     getCardSet();
   }, []);
 
@@ -37,8 +37,13 @@ export const Card = ({ card }: CardProps) => {
         className="flex cursor-pointer flex-col relative items-center gap-3 w-full h-full"
         onClick={() => navigate(`/card/${card.id}`)}
       >
-        <div className='w-full h-full'>
+        <div className="w-full h-full">
           <section className="text-secondary-color overflow-y-auto text-xl gap-2 absolute flex items-start flex-col p-8 w-full h-full rounded-2xl opacity-0 hover:opacity-100 transition-all hover:backdrop-blur-sm hover:bg-[#000c] bg-transparent top-0">
+            <div className="absolute flex gap-3 h-6 top-3 right-6">
+              {card.types.map((type) => (
+                <img src={`/images/${type}.png`} key={type} alt={type} className="w-full h-full" />
+              ))}
+            </div>
             <h4 className="text-4xl self-center">
               <strong>{card.name}</strong>
             </h4>

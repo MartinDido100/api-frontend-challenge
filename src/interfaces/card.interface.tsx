@@ -9,7 +9,7 @@ export interface CardListResponse {
 export interface CardInterface {
   id: string;
   name: string;
-  types: Type[];
+  types: string[];
   attacks?: Attack[];
   rarity?: string;
   images: Images;
@@ -20,19 +20,10 @@ export interface CardInterface {
 
 export interface Attack {
   name: string;
-  cost: Type[];
+  cost: string[];
   convertedEnergyCost: number;
   damage: string;
   text: string;
-}
-
-export enum Type {
-  Colorless = 'Colorless',
-  Darkness = 'Darkness',
-  Dragon = 'Dragon',
-  Grass = 'Grass',
-  Lightning = 'Lightning',
-  Metal = 'Metal',
 }
 
 export interface Images {
@@ -54,7 +45,7 @@ export interface CardDetail {
   resistances: Resistance[];
   number: number;
   cardmarket: Cardmarket;
-  images: Images
+  images: Images;
 }
 
 export interface Cardmarket {
@@ -64,10 +55,10 @@ export interface Cardmarket {
 }
 
 interface MarketPrices {
-    trendPrice: number;
-    avg1: number;
-    avg7: number;
-    avg30: number;
+  trendPrice: number;
+  avg1: number;
+  avg7: number;
+  avg30: number;
 }
 
 export interface Resistance {

@@ -27,6 +27,7 @@ export const Searchbar = () => {
     <>
       <div className="w-[32rem] relative">
         <input
+          autoComplete="false"
           type="text"
           id="searchbar"
           placeholder="Search card..."
@@ -36,9 +37,9 @@ export const Searchbar = () => {
         />
         <div
           onClick={() => hanldeSearchValue()}
-          className=" absolute right-0 h-full cursor-pointer w-12 flex bg-gray-400 items-center justify-center rounded-tr-xl rounded-br-xl top-0 bottom-0 m-auto"
+          className=" absolute right-0 h-full cursor-pointer transition-all w-12 p-2 hover:p-[.65rem] flex bg-gray-400 items-center justify-center rounded-tr-xl rounded-br-xl top-0 bottom-0 m-auto"
         >
-          <img src={searchIcon} className="w-6 h-6 hover:scale-[.89] transition-transform" />
+          <img src={searchIcon} />
         </div>
       </div>
     </>
