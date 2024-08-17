@@ -23,9 +23,9 @@ export const MarketDetails = ({ cardmarket }: MarketProps) => {
         <h4 className="text-title-color">Cardmarket:</h4>
         <span>Last market update: {cardmarket.updatedAt}</span>
         <span>Prices: </span>
-        <ul className="flex text-xl justify-between">
+        <ul className="flex text-xl xl:text-base md:flex-col justify-between">
           {prices.map((price, index) => (
-            <li key={index} className="flex flex-col">
+            <li key={index} className="flex flex-col md:flex-row md:gap-1">
               <span>{price.text} :</span>
               <span className="text-[#40ff32]">{price.price} €</span>
             </li>

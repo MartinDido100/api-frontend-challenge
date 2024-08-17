@@ -11,5 +11,14 @@ export const theme = {
       'title-color': '#e4b637',
     },
   },
+  screens: {
+    xl: { max: '1265px' },
+
+    lg: { max: '1023px' },
+
+    md: { max: '750px' },
+
+    sm: { max: '639px' },
+  },
 };
 export const plugins = [];

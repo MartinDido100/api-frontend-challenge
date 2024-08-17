@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useRef, useState } from 'react';
 import { useFilters } from '../../hooks/useFilters';
 import { Filter } from '../../interfaces/filter.interface';
 
@@ -6,47 +6,42 @@ interface FilterBarProps {
   OnChangeFilter: (filter: Filter | null) => void;
 }
 
-enum FilterEnum {
-  SET = 'set',
-  TYPE = 'type',
-  RARITY = 'rarity',
-}
-
-type ReducerAction = {
-  value: string;
-  field: FilterEnum;
-};
-
-const filterReducer = (state: Filter, action: ReducerAction): Filter => {
-  if (action.value === 'default') {
-    return state;
-  }
-
-  switch (action.field) {
-    case FilterEnum.RARITY:
-      return { ...state, rarity: action.value };
-    case FilterEnum.SET:
-      return { ...state, set: action.value };
-    case FilterEnum.TYPE:
-      return { ...state, type: action.value };
-    default:
-      return state;
-  }
-};
-
 export const FilterBar = ({ OnChangeFilter }: FilterBarProps) => {
   const { sets, rarities, types } = useFilters();
-  const [filter, dispatch] = useReducer(filterReducer, { set: null, type: null, rarity: null });
+  const [activeFilter, setActiveFilter] = useState(false);
+
+  const typeRef = useRef<HTMLSelectElement | null>(null);
+  const setRef = useRef<HTMLSelectElement | null>(null);
+  const rarityRef = useRef<HTMLSelectElement | null>(null);
+
+  const emptyFilter = () => {
+    return !typeRef.current?.value && !setRef.current?.value && !rarityRef.current?.value;
+  };
+
+  const handleFilterClick = () => {
+    if (!emptyFilter()) {
+      setActiveFilter(true);
+      OnChangeFilter({
+        set: setRef.current!.value,
+        type: typeRef.current!.value,
+        rarity: rarityRef.current!.value,
+      });
+    }
+  };
+
+  const removeFilter = () => {
+    setRef.current!.selectedIndex = 0;
+    typeRef.current!.selectedIndex = 0;
+    rarityRef.current!.selectedIndex = 0;
+    setActiveFilter(false);
+    OnChangeFilter(null);
+  };
 
   return (
-    <div className="flex items-center text-lg p-3 px-6 gap-6 w-11/12 rounded-xl mt-24 bg-secondary-color">
+    <div className="flex items-center lg:items-start lg:flex-col text-lg p-3 px-6 gap-6 w-11/12 rounded-xl mt-24 md:mt-60 bg-secondary-color">
       <span>Filter By:</span>
-      <select
-        name="typeFilter"
-        onChange={(change) => dispatch({ value: change.target.value, field: FilterEnum.TYPE })}
-        className="w-48 outline-none p-2"
-      >
-        <option value="default"> --Type-- </option>
+      <select disabled={activeFilter} name="typeFilter" ref={typeRef} className="w-48 lg:w-full outline-none p-2">
+        <option value=""> --Type-- </option>
         {types?.map((type) => (
           <option key={type} value={type}>
             {type}
@@ -54,12 +49,8 @@ export const FilterBar = ({ OnChangeFilter }: FilterBarProps) => {
         ))}
       </select>
 
-      <select
-        name="setFilter"
-        className="w-48 outline-none p-2"
-        onChange={(change) => dispatch({ value: change.target.value, field: FilterEnum.SET })}
-      >
-        <option value="default"> --Set-- </option>
+      <select disabled={activeFilter} name="setFilter" className="w-48 lg:w-full outline-none p-2" ref={setRef}>
+        <option value=""> --Set-- </option>
         {sets?.map((set) => (
           <option key={set} value={set}>
             {set}
@@ -67,12 +58,8 @@ export const FilterBar = ({ OnChangeFilter }: FilterBarProps) => {
         ))}
       </select>
 
-      <select
-        name="rarityFilter"
-        className="w-48 outline-none p-2"
-        onChange={(change) => dispatch({ value: change.target.value, field: FilterEnum.RARITY })}
-      >
-        <option value="default"> --Rarity-- </option>
+      <select disabled={activeFilter} name="rarityFilter" className="w-48 lg:w-full outline-none p-2" ref={rarityRef}>
+        <option value=""> --Rarity-- </option>
         {rarities?.map((rarity) => (
           <option key={rarity} value={rarity}>
             {rarity}
@@ -80,9 +67,17 @@ export const FilterBar = ({ OnChangeFilter }: FilterBarProps) => {
         ))}
       </select>
       <span className="grow"></span>
-      <button onClick={() => OnChangeFilter(filter)} className="text-2xl hover:text-[1.45rem] transition-all">
-        <strong>Filter</strong>
-      </button>
+      {!activeFilter && (
+        <button onClick={handleFilterClick} className="text-2xl hover:text-[1.45rem] transition-all">
+          <strong>Filter</strong>
+        </button>
+      )}
+
+      {activeFilter && (
+        <button onClick={removeFilter} className="text-2xl text-primary-color hover:text-[1.45rem] transition-all">
+          <strong>Remove filter</strong>
+        </button>
+      )}
     </div>
   );
 };

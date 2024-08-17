@@ -7,7 +7,7 @@ export interface SetFilter {
 }
 
 export interface Filter {
-  set: string | null;
-  type: string | null;
-  rarity: string | null;
+  set: string;
+  type: string;
+  rarity: string;
 }

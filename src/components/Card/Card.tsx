@@ -38,26 +38,27 @@ export const Card = ({ card }: CardProps) => {
         onClick={() => navigate(`/card/${card.id}`)}
       >
         <div className="w-full h-full">
-          <section className="text-secondary-color overflow-y-auto text-xl gap-2 absolute flex items-start flex-col p-8 w-full h-full rounded-2xl opacity-0 hover:opacity-100 transition-all hover:backdrop-blur-sm hover:bg-[#000c] bg-transparent top-0">
+          <section className="text-secondary-color overflow-y-auto text-xl gap-2 absolute flex items-start flex-col sm:p-4 p-8 w-full h-full rounded-2xl opacity-0 hover:opacity-100 transition-all hover:backdrop-blur-sm hover:bg-[#000c] bg-transparent top-0">
             <div className="absolute flex gap-3 h-6 top-3 right-6">
-              {card.types && card.types.map((type) => (
-                <img src={`/images/${type}.png`} key={type} alt={type} className="w-full h-full" />
-              ))}
+              {card.types &&
+                card.types.map((type) => (
+                  <img src={`/images/${type}.png`} key={type} alt={type} className="w-full h-full" />
+                ))}
             </div>
             <h4 className="text-4xl self-center">
               <strong>{card.name}</strong>
             </h4>
-            <h6 className="text-2xl text-title-color">-Rarity: {card.rarity ? card.rarity : 'Common'}</h6>
+            <h6 className="text-2xl sm:text-xl text-title-color">-Rarity: {card.rarity ? card.rarity : 'Common'}</h6>
             <span className="text-2xl text-title-color">- Attacks:</span>
             <ul>{cardList || 'No atacks'}</ul>
-            <span className="text-2xl text-title-color">- Card set:</span>
-            <div className="flex w-full items-center justify-between text-secondary-color">
+            <span className="text-2xl sm:text-xl text-title-color">- Card set:</span>
+            <div className="sm:flex-col sm:items-start sm:gap-5 flex w-full items-center justify-between text-secondary-color">
               <div className="flex flex-col">
                 <span>Set name: {cardSet?.name}</span>
                 <span>Set series: {cardSet?.series}</span>
                 <span>Set released in: {cardSet?.releaseDate}</span>
               </div>
-              <picture className="w-40">
+              <picture className="w-40 sm:self-center">
                 <img src={cardSet?.images.logo} alt="" className="h-full w-full" />
               </picture>
             </div>

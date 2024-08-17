@@ -14,7 +14,7 @@ export const Home = () => {
 
   const { cards, isFetchingNextPage, error, isLoading, fetchNextPage, hasNextPage } = useCards(
     searchCtx!.value,
-    filter,
+    filter as Filter,
   );
 
   const handleFilterChange = (filter: Filter | null) => {
@@ -22,7 +22,7 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    if ((searchCtx?.value !== '' && cards !== undefined && cards?.length === 0) || error !== null) {
+    if ((cards !== undefined && cards?.length === 0) || error !== null) {
       searchCtx?.setValue('');
       navigate('/not-found');
     }

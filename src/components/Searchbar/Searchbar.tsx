@@ -25,7 +25,7 @@ export const Searchbar = () => {
 
   return (
     <>
-      <div className="w-[32rem] relative">
+      <div className="w-[32rem] md:w-[90%] relative">
         <input
           autoComplete="false"
           type="text"
