@@ -33,12 +33,12 @@ export const Card = ({ card }: CardProps) => {
 
   return (
     <>
-      <div
-        className="flex cursor-pointer flex-col relative items-center gap-3 w-full h-full"
-        onClick={() => navigate(`/card/${card.id}`)}
-      >
-        <div className="w-full h-full">
-          <section className="text-secondary-color overflow-y-auto text-xl gap-2 absolute flex items-start flex-col sm:p-4 p-8 w-full h-full rounded-2xl opacity-0 hover:opacity-100 transition-all hover:backdrop-blur-sm hover:bg-[#000c] bg-transparent top-0">
+      <div className="flex cursor-pointer flex-col relative items-center gap-3 w-full h-full">
+        <div className="w-full h-full group">
+          <section
+            onClick={() => navigate(`/card/${card.id}`)}
+            className="text-secondary-color overflow-y-auto text-xl gap-2 absolute invisible group-hover:visible opacity-0 ease-in-out duration-300 group-hover:opacity-100 transition-all items-start flex-col sm:p-4 p-8 w-full h-full rounded-2xl backdrop-blur-sm bg-[#000c] top-0"
+          >
             <div className="absolute flex gap-3 h-6 top-3 right-6">
               {card.types &&
                 card.types.map((type) => (
