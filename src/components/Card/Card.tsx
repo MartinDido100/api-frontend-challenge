@@ -33,8 +33,7 @@ export const Card = ({ card }: CardProps) => {
 
   return (
     <>
-      <div className="flex cursor-pointer flex-col relative items-center gap-3 w-full h-full">
-        <div className="w-full h-full group">
+      <div className="flex cursor-pointer flex-col relative items-center group gap-3 w-full h-full">
           <section
             onClick={() => navigate(`/card/${card.id}`)}
             className="text-secondary-color overflow-y-auto text-xl gap-2 absolute invisible group-hover:visible opacity-0 ease-in-out duration-300 group-hover:opacity-100 transition-all items-start flex-col sm:p-4 p-8 w-full h-full rounded-2xl backdrop-blur-sm bg-[#000c] top-0"
@@ -66,7 +65,6 @@ export const Card = ({ card }: CardProps) => {
           <picture className="w-full">
             <img className="rounded-2xl w-full h-full" src={card.images.large} alt={`${card.name} image`} />
           </picture>
-        </div>
       </div>
     </>
   );
