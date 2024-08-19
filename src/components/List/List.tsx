@@ -16,7 +16,7 @@ export const List = ({ cards }: ListProps) => {
 
   return (
     <>
-      <div className="flex w-32 self-start xl:self-center rounded-xl ml-10 items-center p-3 justify-center mt-4 gap-4 bg-secondary-color">
+      <div className="flex w-32 self-start lg:self-center rounded-xl ml-10 items-center p-3 justify-center mt-4 gap-4 bg-secondary-color">
         <button onClick={() => setView(ViewOption.GRID)}>
           <img src="/images/grid.png" alt="grid icon" className="h-7 hover:scale-90 transition-transform" />
         </button>
