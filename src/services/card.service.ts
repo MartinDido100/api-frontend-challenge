@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { CardDetailResponse, CardListResponse } from '../interfaces/card.interface';
+import { CardDetailResponse, CardListResponse, Filter, FilterResponse } from '../interfaces';
 import { CardSetResponse } from '../interfaces';
-import { Filter, FilterResponse } from '../interfaces/filter.interface';
 
 const limit = 20;
 const cardSelect = 'id,name,types,attacks,weakness,rarity,images,set';
@@ -21,7 +20,7 @@ export const getCard = (id: string) => {
   })
 }
 
-const applyFilters = (query: string, filter: Filter) => {
+const applyFilters = (query: string, filter: Filter): string => {
   if (filter.rarity) {
     query = query.concat(` rarity:"${filter.rarity}"`);
   }

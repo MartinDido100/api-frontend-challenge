@@ -3,7 +3,20 @@ import { CardInterface } from '../interfaces';
 import { getCards } from '../services';
 import { Filter } from '../interfaces/filter.interface';
 
-const fetchCards = async ({ pageParam = 1, queryKey }: { pageParam?: number; queryKey: (string | Filter)[] }) => {
+type FetchCardsResponse = {
+  cards: CardInterface[];
+  page: number;
+  totalCount: number;
+  pageSize: number;
+};
+
+const fetchCards = async ({
+  pageParam = 1,
+  queryKey,
+}: {
+  pageParam?: number;
+  queryKey: (string | Filter)[];
+}): Promise<FetchCardsResponse> => {
   const res = await getCards(pageParam, queryKey[0] as string, queryKey[1] as Filter);
   return {
     cards: res.data.data,
