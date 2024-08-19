@@ -33,7 +33,19 @@ export const Home = () => {
         className="w-full bg-cover bg-fixed flex-col items-center flex min-h-screen pb-6"
         style={{ backgroundImage: `url(${bg})` }}
       >
-        <FilterBar OnChangeFilter={handleFilterChange} />
+        <div className="w-full px-10">
+          <FilterBar OnChangeFilter={handleFilterChange} />
+        </div>
+        {/* <div className="flex flex-col w-full items-center pl-10">
+          <div className="flex w-32 rounded-xl items-center p-3 justify-center mt-4 gap-4 bg-secondary-color">
+            <button>
+              <img src="/images/grid.png" alt="grid icon" className="h-7 hover:scale-90 transition-transform" />
+            </button>
+            <button>
+              <img src="/images/list.png" alt="list icon" className="h-7 hover:scale-90 transition-transform" />
+            </button>
+          </div>
+        </div> */}
         {cards && cards.length > 0 && (
           <>
             <List cards={cards!}></List>

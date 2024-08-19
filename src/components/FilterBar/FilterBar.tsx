@@ -38,7 +38,7 @@ export const FilterBar = ({ OnChangeFilter }: FilterBarProps) => {
   };
 
   return (
-    <div className="flex items-center lg:items-start lg:flex-col text-lg p-3 px-6 gap-6 w-11/12 rounded-xl mt-24 md:mt-60 bg-secondary-color">
+    <div className="flex items-center lg:items-start lg:flex-col text-lg p-3 px-6 gap-6 w-full rounded-xl mt-24 md:mt-60 bg-secondary-color">
       <span>Filter By:</span>
       <select disabled={activeFilter} name="typeFilter" ref={typeRef} className="w-48 lg:w-full outline-none p-2">
         <option value=""> --Type-- </option>
