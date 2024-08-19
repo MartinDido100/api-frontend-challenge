@@ -27,7 +27,7 @@ export const Searchbar = () => {
     <>
       <div className="w-[32rem] md:w-[90%] relative">
         <input
-          autoComplete="false"
+          autoComplete="off"
           type="text"
           id="searchbar"
           placeholder="Search card..."
