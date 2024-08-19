@@ -16,7 +16,7 @@ export const List = ({ cards }: ListProps) => {
 
   return (
     <>
-      <div className="flex w-32 self-start lg:self-center rounded-xl ml-10 items-center p-3 justify-center mt-4 gap-4 bg-secondary-color">
+      <div className="flex w-32 self-start md:hidden lg:self-center rounded-xl ml-10 items-center p-3 justify-center mt-4 gap-4 bg-secondary-color">
         <button onClick={() => setView(ViewOption.GRID)}>
           <img src="/images/grid.png" alt="grid icon" className="h-7 hover:scale-90 transition-transform" />
         </button>
@@ -25,7 +25,7 @@ export const List = ({ cards }: ListProps) => {
         </button>
       </div>
       <div
-        className={`sm:px-6 sm:gap-y-10 grid ${view === ViewOption.GRID ? 'grid-cols-[repeat(auto-fill,minmax(10rem,30rem))]' : 'grid-cols-1'} pt-8 place-content-center md:w-full ${view === ViewOption.GRID ? 'w-full' : 'w-[50%]'} pb-10 gap-x-32 gap-y-36`}
+        className={`sm:px-6 sm:gap-y-10 grid ${view === ViewOption.GRID ? 'grid-cols-[repeat(auto-fill,minmax(10rem,30rem))]' : 'grid-cols-1'} pt-8 place-content-center lg:w-full ${view === ViewOption.GRID ? 'w-full' : 'w-[50%]'} pb-10 gap-x-32 gap-y-36`}
       >
         {cards.map((card) => (
           <Card card={card} key={card.id} />
