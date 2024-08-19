@@ -21,19 +21,27 @@ export const getCard = (id: string) => {
   })
 }
 
+const applyFilters = (query: string, filter: Filter) => {
+  if (filter.rarity) {
+    query = query.concat(` rarity:"${filter.rarity}"`);
+  }
+
+  if (filter.set) {
+    query = query.concat(` set.name:"${filter.set}"`);
+  }
+
+  if (filter.type) {
+    query = query.concat(` types:${filter.type}`);
+  }
+
+  return query
+}
+
 export const getCards = (page: number,nameQuery: string, filter: Filter) => {
   let query = nameQuery ? `name:"*${nameQuery}*"` : ''
 
-  if(filter && filter.rarity){
-    query = query.concat(` rarity:"${filter.rarity}"`)
-  }
-  
-  if(filter && filter.set){
-    query = query.concat(` set.name:"${filter.set}"`);
-  }
-  
-  if (filter && filter.type) {
-    query = query.concat(` types:${filter.type}`);
+  if(filter){
+    query = applyFilters(query,filter)
   }
 
   return axios.get<CardListResponse>(`${baseUrl}/cards`, {
