@@ -1,8 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { CardDetail } from '../../../interfaces';
-import { GeneralDetails } from '../GeneralDetails/GeneralDetails';
-import { MarketDetails } from '../MarketDetails/MarketDetail';
-import { StrenghtsDetails } from '../StrenghtsDetails/StrenghtsDetails';
+import { GeneralDetails, MarketDetails, StrenghtsDetails } from '../../../components';
 
 interface DetailInfoProps {
   card: CardDetail;

@@ -1,11 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
-import { List, Loader } from '../../components';
+import { List, Loader, FilterBar } from '../../components';
 import bg from '../../assets/images/background.webp';
 import { SearchContext } from '../Layout';
 import { useCards } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
-import { Filter } from '../../interfaces/filter.interface';
-import { FilterBar } from '../../components/FilterBar/FilterBar';
+import { Filter } from '../../interfaces';
 
 export const Home = () => {
   const searchCtx = useContext(SearchContext);

@@ -1,4 +1,4 @@
-import { Resistance } from '../../../interfaces/card.interface';
+import { Resistance } from '../../../interfaces';
 
 interface StrenghtsDetailsProps {
   weaknesses: Resistance[];

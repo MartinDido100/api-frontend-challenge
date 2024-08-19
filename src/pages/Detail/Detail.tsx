@@ -3,8 +3,7 @@ import background from '../../assets/images/detail-bg.png';
 import { useEffect, useState } from 'react';
 import { CardDetail } from '../../interfaces';
 import { getCard } from '../../services';
-import { Loader } from '../../components';
-import { DetailInfo } from '../../components/CardDetails/Detail-Info/Detail-Info';
+import { Loader, DetailInfo } from '../../components';
 
 export const Detail = () => {
   const { cardId } = useParams();
@@ -30,7 +29,7 @@ export const Detail = () => {
 
   return (
     <section
-      className="lg:pb-6 flex bg-center bg-cover min-h-screen w-full items-center justify-center"
+      className="lg:pb-6 pt-20 flex bg-center bg-cover min-h-screen w-full items-center justify-center"
       style={{ backgroundImage: `url(${background})` }}
     >
       {loading && (

@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import { useFilters } from '../../hooks/useFilters';
-import { Filter } from '../../interfaces/filter.interface';
+import { useFilters } from '../../hooks';
+import { Filter } from '../../interfaces';
 
 interface FilterBarProps {
   OnChangeFilter: (filter: Filter | null) => void;
