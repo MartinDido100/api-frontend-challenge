@@ -36,7 +36,7 @@ const applyFilters = (query: string, filter: Filter): string => {
   return query
 }
 
-export const getCards = (page: number,nameQuery: string, filter: Filter) => {
+export const getCards = (page: number,nameQuery: string, filter: Filter | null) => {
   let query = nameQuery ? `name:"*${nameQuery}*"` : ''
 
   if(filter){

@@ -13,7 +13,7 @@ export const Home = () => {
 
   const { cards, isFetchingNextPage, error, isLoading, fetchNextPage, hasNextPage } = useCards(
     searchCtx!.value,
-    filter as Filter,
+    filter,
   );
 
   const handleFilterChange = (filter: Filter | null) => {

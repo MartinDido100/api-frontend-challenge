@@ -15,9 +15,9 @@ const fetchCards = async ({
   queryKey,
 }: {
   pageParam?: number;
-  queryKey: (string | Filter)[];
+  queryKey: (string | Filter | null)[];
 }): Promise<FetchCardsResponse> => {
-  const res = await getCards(pageParam, queryKey[0] as string, queryKey[1] as Filter);
+  const res = await getCards(pageParam, queryKey[0] as string, queryKey[1] as Filter | null);
   return {
     cards: res.data.data,
     page: res.data.page,
@@ -32,7 +32,7 @@ const checkNextPage = (lastPage: number, totalCount: number, pageSize: number): 
 
 export const useCards = (
   query: string,
-  filter: Filter,
+  filter: Filter | null,
 ): {
   cards: CardInterface[] | undefined;
   hasNextPage: boolean | undefined;
